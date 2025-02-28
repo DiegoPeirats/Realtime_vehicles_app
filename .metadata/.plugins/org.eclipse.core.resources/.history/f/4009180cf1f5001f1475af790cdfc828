@@ -1,0 +1,59 @@
+package com.realtime_vehicles.vehicles.application.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.realtime_vehicles.vehicles.application.response.VehicleDTO;
+import com.realtime_vehicles.vehicles.domain.entity.Vehicle;
+import com.realtime_vehicles.vehicles.domain.service.VehicleService;
+import com.realtime_vehicles.vehicles.infrastructure.repository.VehicleRepository;
+
+@Service
+public class VehicleServiceImpl implements VehicleService{
+	
+	@Autowired
+	private VehicleRepository repository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public ResponseEntity<VehicleDTO> getById(Long id) {
+	    return repository.findById(id)
+	        .map(vehicle -> ResponseEntity.ok(modelMapper.map(vehicle, VehicleDTO.class)))
+	        .orElseGet(() -> ResponseEntity.notFound().build());
+	}
+
+	@Override
+	public ResponseEntity<List<VehicleDTO>> getByZone(String zone) {
+
+		List<Vehicle> vehicleList = repository.findByZoneCode(zone);
+		
+		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
+		
+		for (Vehicle vehicle : vehicleList) {
+			VehicleDTO vehicleDto = modelMapper.map(vehicle, VehicleDTO.class);
+			vehicles.add(vehicleDto);
+		}
+		
+		return ResponseEntity.ok(vehicles);
+	}
+
+	public ResponseEntity<List<VehicleDTO>> getAll() {
+		
+		List<VehicleDTO> vehicles = repository.findAll().stream()
+	            .map(vehicle -> modelMapper.map(vehicle, VehicleDTO.class))
+	            .collect(Collectors.toList());
+		
+		return vehicles.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(vehicles);
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.realtime_vehicles.vehicles.application.service;
+
+public class VehicleServiceImpl {
+
+}

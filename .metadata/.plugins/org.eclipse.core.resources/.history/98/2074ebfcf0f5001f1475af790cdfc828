@@ -1,0 +1,14 @@
+package com.realtime_vehicles.vehicles.domain.service;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.realtime_vehicles.vehicles.application.response.VehicleDTO;
+
+public interface VehicleService {
+	
+	ResponseEntity<VehicleDTO> getById(Long id);
+	ResponseEntity<List<VehicleDTO>> getByZone(String zone);
+
+}

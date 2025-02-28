@@ -1,0 +1,44 @@
+package com.realtime_vehicles.vehicles.application.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.realtime_vehicles.vehicles.application.response.VehicleDTO;
+import com.realtime_vehicles.vehicles.domain.entity.Vehicle;
+import com.realtime_vehicles.vehicles.domain.service.VehicleService;
+import com.realtime_vehicles.vehicles.infrastructure.repository.VehicleRepository;
+
+@Service
+public class VehicleServiceImpl implements VehicleService{
+	
+	@Autowired
+	private VehicleRepository repository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public ResponseEntity<VehicleDTO> getById(Long id) {
+		
+		Optional<Vehicle> vehicleOptional = repository.findById(id);
+		
+		if (vehicleOptional.isEmpty()) return ResponseEntity.notFound().build();
+		
+		VehicleDTO vehicle = modelMapper.map(vehicleOptional.get(), VehicleDTO.class);
+		
+		return ResponseEntity.ok(vehicle);
+	}
+
+	@Override
+	public ResponseEntity<List<VehicleDTO>> getByZone(String zone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
