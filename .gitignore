@@ -35,3 +35,4 @@ release.properties
 *.swp
 *.swo
 *.
+/.metadata/
