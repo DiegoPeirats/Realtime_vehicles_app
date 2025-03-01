@@ -17,7 +17,7 @@ public class PositionRouter {
 
     	return RouterFunctions
     			.route(RequestPredicates.GET("/functional/vehicle/{vehicleCode}"), handler::getVehiclePosition)
-    			.andRoute(RequestPredicates.GET("/functional/vehicle/{zoneCode}"), handler::getZoneVehicles);
+    			.andRoute(RequestPredicates.GET("/functional/zone/{zoneCode}"), handler::getZoneVehicles);
     }
 
 }
