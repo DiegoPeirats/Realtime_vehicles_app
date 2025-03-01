@@ -2,19 +2,30 @@ package com.realtime_vehicles.vehicles.application.response;
 
 public class VehicleDTO {
 	
+	private Long id;
+	
 	private String zone_code;
 	
 	private String type;
 	
 	private String brand;
 	
-	public VehicleDTO(String zone_code, String type, String brand) {
+	public VehicleDTO(Long id, String zone_code, String type, String brand) {
+		this.id = id;
 		this.zone_code = zone_code;
 		this.type = type;
 		this.brand = brand;
 	}
 	
 	public VehicleDTO() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getZone_code() {
@@ -43,7 +54,7 @@ public class VehicleDTO {
 
 	@Override
 	public String toString() {
-		return "Vehicle [zone_code=" + zone_code + ", type=" + type + ", brand=" + brand + "]";
+		return "VehicleDTO [id=" + id + ", zone_code=" + zone_code + ", type=" + type + ", brand=" + brand + "]";
 	}
 
 }
