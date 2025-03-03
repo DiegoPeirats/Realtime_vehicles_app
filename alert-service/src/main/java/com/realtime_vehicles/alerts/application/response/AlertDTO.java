@@ -1,8 +1,11 @@
 package com.realtime_vehicles.alerts.application.response;
 
+import java.io.Serializable;
 
-public class AlertDTO {
+public class AlertDTO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	private String vehicleCode;

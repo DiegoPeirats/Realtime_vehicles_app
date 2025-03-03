@@ -14,5 +14,7 @@ public class WSAlertController {
     public AlertDTO sendAlert(AlertDTO message) {
         return message; 
     }
+	
+	//falta dividir la respuesta en mas metodos
 
 }
