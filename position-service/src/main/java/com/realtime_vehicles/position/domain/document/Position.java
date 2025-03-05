@@ -4,7 +4,7 @@ import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "posicionamientos")
+@Document(collection = "positions")
 public class Position {
 
     @Id

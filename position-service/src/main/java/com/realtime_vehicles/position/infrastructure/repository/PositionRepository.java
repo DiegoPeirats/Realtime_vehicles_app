@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 public interface PositionRepository extends ReactiveMongoRepository<Position, String>{
 	
 	Mono<Position> findFirstByVehicleCodeOrderByTimestampDesc(String vehicleCode);
+	Flux<Position> findAllByOrderByTimestampAsc();
 	Flux<Position> findAllByZoneCodeOrderByTimestampDesc(String zoneCode);
+	Flux<Position> findAllbyVehicleCodeOrderByTimestampDesc(String vehicleCode);
 
 }
