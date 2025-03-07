@@ -10,6 +10,9 @@ public interface GatewayService {
 	
 	ResponseEntity<VehicleHistorial> getHistorial(Long vehicleId);
 	ResponseEntity<ZoneVehicles> getZoneVehicles(String zoneCode);
-	User getUserInfo(Long userId);
+	ResponseEntity<User> getUserInfo(Long userId);
+	ResponseEntity<User> createUser(User user);
+	ResponseEntity<User> updateUser(User user);
+	void deleteUser(Long userId);
 
 }
