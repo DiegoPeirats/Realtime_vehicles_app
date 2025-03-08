@@ -14,6 +14,6 @@ public interface PositionRepository extends ReactiveMongoRepository<Position, St
 	Mono<Position> findFirstByVehicleCodeOrderByTimestampDesc(String vehicleCode);
 	Flux<Position> findAllByOrderByTimestampAsc();
 	Flux<Position> findAllByZoneCodeOrderByTimestampDesc(String zoneCode);
-	Flux<Position> findAllbyVehicleCodeOrderByTimestampDesc(String vehicleCode);
+	Flux<Position> findAllByVehicleCodeOrderByTimestampDesc(String vehicleCode);
 
 }

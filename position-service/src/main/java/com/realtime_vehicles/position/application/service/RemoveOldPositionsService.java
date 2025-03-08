@@ -21,7 +21,7 @@ public class RemoveOldPositionsService implements CleanDbService{
 	private PositionRepository repository;
 	
 	private Flux<Position> obtenerHistorial(String vehicleCode) {
-	    return repository.findAllbyVehicleCodeOrderByTimestampDesc(vehicleCode)
+	    return repository.findAllByVehicleCodeOrderByTimestampDesc(vehicleCode)
 	                     .take(5); 
 	}
 
