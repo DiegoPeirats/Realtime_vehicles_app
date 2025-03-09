@@ -80,4 +80,11 @@ public class Position {
 	public void setTimestamp(Instant timestamp) {
 		this.timestamp = timestamp;
 	}
+
+	@Override
+	public String toString() {
+		return "Position [id=" + id + ", vehicleCode=" + vehicleCode + ", x=" + x + ", y=" + y + ", zoneCode="
+				+ zoneCode + ", timestamp=" + timestamp + "]";
+	}
+	
 }

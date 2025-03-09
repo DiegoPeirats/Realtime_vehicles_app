@@ -13,7 +13,7 @@ import com.realtime_vehicles.position.application.handler.PositionHandler;
 public class PositionRouter {
     
 	@Bean
-    RouterFunction<ServerResponse> routes(PositionHandler handler) {
+    public RouterFunction<ServerResponse> routes(PositionHandler handler) {
 
     	return RouterFunctions
     			.route(RequestPredicates.GET("/functional/vehicle/{vehicleCode}"), handler::getVehiclePosition)
