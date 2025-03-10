@@ -29,14 +29,14 @@ public class PositionServiceImpl  implements PositionService{
 	private PositionClient positionClient;
 
 	@Cacheable("getVehiclesCodes")
-	private List<Long> getVehiclesCodes (){
+	public List<Long> getVehiclesCodes (){
 		return vehiclesClient.getVehicles().stream()
 				.map(vehicle -> vehicle.getId())
 				.collect(Collectors.toList());
 	}
 	
 	@Cacheable("getZonesCodes")
-	private List<String> getZonesCodes(){
+	public List<String> getZonesCodes(){
 		return zoneClient.getZones().stream()
 				.map(zone -> zone.getCode())
 				.collect(Collectors.toList());

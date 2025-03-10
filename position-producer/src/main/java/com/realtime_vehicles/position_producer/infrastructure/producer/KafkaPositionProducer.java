@@ -22,11 +22,11 @@ public class KafkaPositionProducer {
 	
 	private static final Logger log = LoggerFactory.getLogger(KafkaPositionProducer.class);
 	
-	private String getTopic(String zone) {
+	public String getTopic(String zone) {
 		return zone.toLowerCase().replace(" ", "-") + "-positions";
 	}
 	
-	private void sendPositionToKafka(String topic, Position position) {
+	public void sendPositionToKafka(String topic, Position position) {
         kafkaTemplate.send(topic, position.getVehicleCode(), position)
             .whenComplete((result, ex) -> {
                 if (ex != null) {
