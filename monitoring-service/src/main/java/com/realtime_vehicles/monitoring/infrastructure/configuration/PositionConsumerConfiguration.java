@@ -52,7 +52,7 @@ public class PositionConsumerConfiguration {
 	}
 	
 	@Bean
-	private RecordInterceptor<String, Position> validMessage(){
+	public RecordInterceptor<String, Position> validMessage(){
 		return (record,consumer) -> {
 			log.info("Intercepted record: {}", record);
 			return record;

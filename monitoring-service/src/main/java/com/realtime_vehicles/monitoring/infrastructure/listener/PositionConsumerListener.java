@@ -13,10 +13,13 @@ import com.realtime_vehicles.monitoring.infrastructure.response.Position;
 public class PositionConsumerListener {
 	
 	private static final Logger log = LoggerFactory.getLogger(PositionConsumerListener.class);
-	
-	@Autowired
+
 	private MonitoringServiceImpl service;
 	
+	public PositionConsumerListener(MonitoringServiceImpl service) {
+		this.service = service;
+	}
+
 	@KafkaListener(
 		    topics = "zona-norte-positions",
 		    groupId = "group-1",

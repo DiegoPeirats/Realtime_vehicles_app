@@ -23,6 +23,14 @@ public class Position implements Serializable{
 		this.zoneCode = zoneCode;
 		this.timestamp = timestamp;
 	}
+	
+	public Position(String vehicleCode, double x, double y, String zoneCode, Instant timestamp) {
+		this.vehicleCode = vehicleCode;
+		this.x = x;
+		this.y = y;
+		this.zoneCode = zoneCode;
+		this.timestamp = timestamp;
+	}
 
 	public Position() {
 	}
