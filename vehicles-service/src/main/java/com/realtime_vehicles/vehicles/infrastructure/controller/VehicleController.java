@@ -27,7 +27,7 @@ public class VehicleController {
 	}
 	
 	@GetMapping("vehicles/zone/{zone}")
-	public ResponseEntity<List<VehicleDTO>> getById(@PathVariable String zone){
+	public ResponseEntity<List<VehicleDTO>> getByZone(@PathVariable String zone){
 		
 		return service.getByZone(zone);
 		
@@ -39,7 +39,4 @@ public class VehicleController {
 		return service.getAll();
 		
 	}
-	
-	
-
 }
