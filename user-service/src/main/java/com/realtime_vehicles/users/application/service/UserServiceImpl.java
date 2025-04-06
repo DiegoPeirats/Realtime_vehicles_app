@@ -1,5 +1,7 @@
 package com.realtime_vehicles.users.application.service;
 
+import java.util.Optional;
+
 import org.hibernate.StaleObjectStateException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,22 +43,30 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public ResponseEntity<UserDTO> registerUser(User user) {
+	public ResponseEntity<Object> registerUser(User user) {
 		
 		try {
+			Optional<User> userFound = repository.findByEmail(user.getEmail());
+			if(userFound.isPresent()) 
+				return ResponseEntity
+					.status(HttpStatus.BAD_REQUEST)
+					.body("el email ya está en uso");
 			User userResponse = repository.save(user);
 			return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(userResponse, UserDTO.class));
-		}catch(DataIntegrityViolationException  e) {
-			return ResponseEntity.badRequest().build();
-		}catch(StaleObjectStateException e) {
-			return ResponseEntity.badRequest().build();
-		}
+		}catch (DataIntegrityViolationException | StaleObjectStateException e) {
+	        return ResponseEntity
+	        		.status(HttpStatus.BAD_REQUEST)
+					.body(e);
+	    }
 	}
 
 	@Override
-	public ResponseEntity<UserDTO> updateUser(User user, Long id) {
+	public ResponseEntity<?> updateUser(User user, Long id) {
 		try {
-			if (repository.findById(id).isEmpty()) return ResponseEntity.notFound().build();
+			if (repository.findById(id).isEmpty()) 
+				return ResponseEntity
+						.status(HttpStatus.NOT_FOUND)
+						.body("No se encontró el usuario");
 			user.setId(id);
 			User userResponse = repository.save(user);
 			return ResponseEntity.ok(modelMapper.map(userResponse, UserDTO.class));

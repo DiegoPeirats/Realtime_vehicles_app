@@ -33,12 +33,12 @@ public class UserController {
 	}
 	
 	@PostMapping("users")
-	public ResponseEntity<UserDTO> registerUser(@RequestBody User user){
+	public ResponseEntity<?> registerUser(@RequestBody User user){
 		return service.registerUser(user);
 	}
 	
 	@PutMapping("users/{id}")
-	public ResponseEntity<UserDTO> updateUser(@RequestBody User user, @PathVariable Long id){
+	public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable Long id){
 		return service.updateUser(user, id);
 	}
 	

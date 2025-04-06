@@ -11,9 +11,9 @@ public interface UserService {
 	
 	ResponseEntity<UserDTO> getByEmail(String email);
 	
-	ResponseEntity<UserDTO> registerUser (User user);
+	ResponseEntity<?> registerUser (User user);
 
-	ResponseEntity<UserDTO> updateUser (User user, Long id);
+	ResponseEntity<?> updateUser (User user, Long id);
 	
 	ResponseEntity<Object> deleteUser (Long id);
 
