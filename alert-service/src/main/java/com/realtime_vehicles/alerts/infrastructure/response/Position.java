@@ -2,79 +2,96 @@ package com.realtime_vehicles.alerts.infrastructure.response;
 
 import java.time.Instant;
 
-public class Position {
-	
-	private String id;  
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class Position {
+
+    private String id;  
     private String vehicleCode;
     private double x;
     private double y;
     private String zoneCode;
     private Instant timestamp;
-    
-	public Position(String id, String vehicleCode, double x, double y, String zoneCode, Instant timestamp) {
-		this.id = id;
-		this.vehicleCode = vehicleCode;
-		this.x = x;
-		this.y = y;
-		this.zoneCode = zoneCode;
-		this.timestamp = timestamp;
-	}
 
-	public Position() {
-	}
+    // Constructor con anotaciones JSON
+    @JsonCreator
+    public Position(@JsonProperty("id") String id, 
+                    @JsonProperty("vehicleCode") String vehicleCode,
+                    @JsonProperty("x") double x, 
+                    @JsonProperty("y") double y,
+                    @JsonProperty("zoneCode") String zoneCode, 
+                    @JsonProperty("timestamp") Instant timestamp) {
+        this.id = id;
+        this.vehicleCode = vehicleCode;
+        this.x = x;
+        this.y = y;
+        this.zoneCode = zoneCode;
+        this.timestamp = timestamp;
+    }
 
-	public String getId() {
-		return id;
-	}
+    // Constructor por defecto
+    public Position() {}
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    // Getters y setters
 
-	public String getVehicleCode() {
-		return vehicleCode;
-	}
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
 
-	public void setVehicleCode(String vehicleCode) {
-		this.vehicleCode = vehicleCode;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public double getX() {
-		return x;
-	}
+    @JsonProperty("vehicleCode")
+    public String getVehicleCode() {
+        return vehicleCode;
+    }
 
-	public void setX(double x) {
-		this.x = x;
-	}
+    public void setVehicleCode(String vehicleCode) {
+        this.vehicleCode = vehicleCode;
+    }
 
-	public double getY() {
-		return y;
-	}
+    @JsonProperty("x")
+    public double getX() {
+        return x;
+    }
 
-	public void setY(double y) {
-		this.y = y;
-	}
+    public void setX(double x) {
+        this.x = x;
+    }
 
-	public String getZoneCode() {
-		return zoneCode;
-	}
+    @JsonProperty("y")
+    public double getY() {
+        return y;
+    }
 
-	public void setZoneCode(String zoneCode) {
-		this.zoneCode = zoneCode;
-	}
+    public void setY(double y) {
+        this.y = y;
+    }
 
-	public Instant getTimestamp() {
-		return timestamp;
-	}
+    @JsonProperty("zoneCode")
+    public String getZoneCode() {
+        return zoneCode;
+    }
 
-	public void setTimestamp(Instant timestamp) {
-		this.timestamp = timestamp;
-	}
+    public void setZoneCode(String zoneCode) {
+        this.zoneCode = zoneCode;
+    }
 
-	@Override
-	public String toString() {
-		return "Position [vehicleCode=" + vehicleCode + ", x=" + x + ", y=" + y + ", zoneCode="
-				+ zoneCode + ", timestamp=" + timestamp + "]";
-	}
+    @JsonProperty("timestamp")
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Instant timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Position [vehicleCode=" + vehicleCode + ", x=" + x + ", y=" + y + ", zoneCode="
+                + zoneCode + ", timestamp=" + timestamp + "]";
+    }
 }
