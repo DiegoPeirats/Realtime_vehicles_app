@@ -71,22 +71,15 @@ public class KafkaProducerTests {
     }
     
     @Test
-    @Order(1)
-    void testGetTopic() {
-        String topic = kafkaProducer.getTopic("Zona Central");
-        assertEquals("zona-central-positions", topic);
-    }
-    
-    @Test
     @Order(2)
     void testSendPositionToKafka() {
-        String topic = "test-topic";
+        String topic = "position_topics";
         CompletableFuture<SendResult<String, Position>> future = CompletableFuture.completedFuture(mock(SendResult.class));
 
         when(kafkaTemplate.send(anyString(), anyString(), any(Position.class)))
                 .thenReturn(future);
 
-        kafkaProducer.sendPositionToKafka(topic, samplePosition);
+        kafkaProducer.sendPositionToKafka(samplePosition);
 
         verify(kafkaTemplate).send(topicCaptor.capture(), eq(samplePosition.getVehicleCode().toString()), positionCaptor.capture());
 

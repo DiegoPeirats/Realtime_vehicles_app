@@ -1,5 +1,6 @@
 package com.realtime_vehicles.position_producer.infrastructure.producer;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,18 @@ public class KafkaPositionProducer {
 	private KafkaTemplate<String,Position> kafkaTemplate;
 	
 	@Autowired
+	private NewTopic topic;
+	
+	@Autowired
 	private PositionServiceImpl service;
 	
 	private static final Logger log = LoggerFactory.getLogger(KafkaPositionProducer.class);
 	
-	public String getTopic(String zone) {
-		return zone.toLowerCase().replace(" ", "-") + "-positions";
-	}
-	
-	public void sendPositionToKafka(String topic, Position position) {
+	public void sendPositionToKafka(Position position) {
 		
 		Message<Position> message = MessageBuilder
 				.withPayload(position)
-				.setHeader(KafkaHeaders.TOPIC, topic)
+				.setHeader(KafkaHeaders.TOPIC, topic.name())
 				.build();
 		
         kafkaTemplate.send(message)
@@ -41,7 +41,7 @@ public class KafkaPositionProducer {
                     log.error("Error al enviar el mensaje a Kafka: {}", ex.getMessage());
                     return;
                 }
-                log.info("Mensaje enviado al topic '{}': {}", topic, result.getProducerRecord().value());
+                log.info("Mensaje enviado al topic '{}': {}", topic.name(), result.getProducerRecord().value());
                 log.info("Partition: {}, Offset: {}", result.getRecordMetadata().partition(), 
                         result.getRecordMetadata().offset());
             });
@@ -50,7 +50,7 @@ public class KafkaPositionProducer {
     @PostConstruct
     public void streamLatestVehiclePositionsToKafka() {
         service.getVehiclesPositions()
-            .doOnNext(position -> sendPositionToKafka("vehicle-positions", position))
+            .doOnNext(position -> sendPositionToKafka(position))
             .doOnError(ex -> log.error("Error en el flujo de últimas posiciones: {}", ex.getMessage()))
             .subscribe();
     }
@@ -58,7 +58,7 @@ public class KafkaPositionProducer {
     @PostConstruct
     public void streamZonePositionsToKafka() {
         service.getZonesPositions()
-            .doOnNext(position -> sendPositionToKafka(getTopic(position.getZoneCode()), position))
+            .doOnNext(position -> sendPositionToKafka(position))
             .doOnError(ex -> log.error("Error en el flujo de posiciones de zona: {}", ex.getMessage()))
             .subscribe();
     }
