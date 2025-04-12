@@ -17,7 +17,7 @@ public class PositionConsumerListener {
 	private HistorialServiceImpl service;
 	
 	@KafkaListener(
-			groupId = "group-1", 
+			groupId = "historial", 
 			topics = "position_topics")
 	public void consumePosition(PositionReceived message) {
 		log.info("Recibiendo un mensaje: {}", message);
