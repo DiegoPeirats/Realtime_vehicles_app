@@ -19,8 +19,8 @@ public class PositionConsumerListener {
 	private AlertServiceImpl service;
 	
 	@KafkaListener(
-		    topics = "zona-norte-positions",
-		    groupId = "group-1",
+		    topics = "position_topics",
+		    groupId = "alert",
 		    containerFactory = "validMessageContainerFactory"
 		)
 		public void consumePosition(Position message) {
