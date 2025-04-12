@@ -40,7 +40,7 @@ public class KafkaListenerTests {
 
         kafkaTemplate.send("zona-norte-positions", position);
 
-        listener.zonaNorte(position);
+        listener.consumePosition(position);
 
         Mockito.verify(service).sendPositions(position);
     }

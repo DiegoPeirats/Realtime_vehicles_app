@@ -21,64 +21,12 @@ public class PositionConsumerListener {
 	}
 
 	@KafkaListener(
-		    topics = "zona-norte-positions",
-		    groupId = "group-1",
-		    containerFactory = "validMessageContainerFactory"
+		    topics = "position_topics",
+		    groupId = "group-1"
 		)
-		public void zonaNorte(Position message) {
-		    log.info("ZONA NORTE ::: Recibiendo un mensaje: {}", message);
+		public void consumePosition(Position message) {
+		    log.info("Recibiendo una posicion: {}", message);
 		    service.sendPositions(message);
 		}
-	
-	@KafkaListener(
-		    topics = "zona-sur-positions",
-		    groupId = "group-1",
-		    containerFactory = "validMessageContainerFactory"
-		)
-		public void zonaSur(Position message) {
-		    log.info("ZONA SUR ::: Recibiendo un mensaje: {}", message);
-		    service.sendPositions(message);
-		}
-
-	
-	@KafkaListener(
-		    topics = "zona-este-positions",
-		    groupId = "group-1",
-		    containerFactory = "validMessageContainerFactory"
-		)
-		public void zonaEste(Position message) {
-		    log.info("ZONA ESTE ::: Recibiendo un mensaje: {}", message);
-		    service.sendPositions(message);
-		}
-
-	
-	@KafkaListener(
-		    topics = "zona-oeste-positions",
-		    groupId = "group-1",
-		    containerFactory = "validMessageContainerFactory"
-		)
-		public void zonaOeste(Position message) {
-		    log.info("ZONA OESTE ::: Recibiendo un mensaje: {}", message);
-		    service.sendPositions(message);
-		}
-	
-	
-	@KafkaListener(
-			groupId = "group-1", 
-			topics = "zona-industrial-positions", 
-			containerFactory = "validMessageContainerFactory")
-	public void zonaIndustrial(Position message) {
-		log.info("ZONA INDUSTRIAL ::: Recibiendo un mensaje: {}", message);
-	    service.sendPositions(message);
-	}
-	
-	@KafkaListener(
-			groupId = "group-1", 
-			topics = "centro-historico-positions", 
-			containerFactory = "validMessageContainerFactory")
-	public void centroHistorico(Position message) {
-		log.info("CENTRO HISTORICO ::: Recibiendo un mensaje: {}", message);
-	    service.sendPositions(message);
-	}
 
 }
