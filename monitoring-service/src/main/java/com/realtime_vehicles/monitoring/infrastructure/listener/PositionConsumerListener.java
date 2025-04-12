@@ -22,7 +22,7 @@ public class PositionConsumerListener {
 
 	@KafkaListener(
 		    topics = "position_topics",
-		    groupId = "group-1"
+		    groupId = "monitoring"
 		)
 		public void consumePosition(Position message) {
 		    log.info("Recibiendo una posicion: {}", message);
