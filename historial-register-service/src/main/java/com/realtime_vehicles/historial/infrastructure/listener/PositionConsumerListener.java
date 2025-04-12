@@ -18,12 +18,10 @@ public class PositionConsumerListener {
 	
 	@KafkaListener(
 			groupId = "group-1", 
-			topics = "vehiclePosition", 
-			containerFactory = "validMessageContainerFactory")
-	public PositionReceived vehiclePosition(PositionReceived message) {
-		log.info("VEHICULO ::: Recibiendo un mensaje: {}", message);
+			topics = "position_topics")
+	public void consumePosition(PositionReceived message) {
+		log.info("Recibiendo un mensaje: {}", message);
 		service.savePosition(message);
-	    return message;
 	}
 
 }
