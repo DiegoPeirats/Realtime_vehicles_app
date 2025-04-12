@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.stereotype.Service;
-
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import com.realtime_vehicles.position_producer.application.PositionServiceImpl;
 import com.realtime_vehicles.position_producer.domain.Position;
 
@@ -27,7 +29,13 @@ public class KafkaPositionProducer {
 	}
 	
 	public void sendPositionToKafka(String topic, Position position) {
-        kafkaTemplate.send(topic, position.getVehicleCode(), position)
+		
+		Message<Position> message = MessageBuilder
+				.withPayload(position)
+				.setHeader(KafkaHeaders.TOPIC, topic)
+				.build();
+		
+        kafkaTemplate.send(message)
             .whenComplete((result, ex) -> {
                 if (ex != null) {
                     log.error("Error al enviar el mensaje a Kafka: {}", ex.getMessage());
@@ -42,7 +50,7 @@ public class KafkaPositionProducer {
     @PostConstruct
     public void streamLatestVehiclePositionsToKafka() {
         service.getVehiclesPositions()
-            .doOnNext(position -> sendPositionToKafka("latest-vehicle-positions", position))
+            .doOnNext(position -> sendPositionToKafka("vehicle-positions", position))
             .doOnError(ex -> log.error("Error en el flujo de últimas posiciones: {}", ex.getMessage()))
             .subscribe();
     }
